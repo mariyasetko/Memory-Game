@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 //card options
 const cardArray = [
     {
@@ -50,17 +51,21 @@ const cardArray = [
     }
 ]
 
-const grid = document.querySelector.apply('.grid')
+cardArray.sort(() => 0.5 - Math.random())
+
+const grid = document.querySelector('.grid')
+const resultDisplay = document.querySelector('#result')
 var cardsChosen = []
 var cardsChosenId = []
+var cardsWon = []
 
 //create board
 function createBoard() {
     for (let i = 0; i < cardArray.length; i++) {
-        var card = document.createElement('img')
+        const card = document.createElement('img')
         card.setAttribute('src', 'images/blank.png')
         card.setAttribute('data-id', i)
-        //card.addEventListener('click', flipCard)
+        card.addEventListener('click', flipCard)
         grid.appendChild(card)
     }
 }
@@ -82,7 +87,10 @@ function checkForMatch() {
     }
     cardsChosen = []
     cardsChosenId = []
-    resultDisplay
+    resultDisplay.textContent = cardsWon.length
+    if (cardsWon.length === cardArray.length/2) {
+        resultDisplay.textContent = 'Congratulations, you got them all!'
+    }
 }
 
 //flip your card
@@ -97,3 +105,5 @@ function flipCard() {
 }
 
 createBoard()
+
+})
